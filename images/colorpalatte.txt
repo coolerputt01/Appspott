@@ -1,0 +1,11 @@
+Here’s the color palette extracted from your AppSpott logo:
+
+#7A7E9A (Muted Blue-Gray)
+
+#A1A9B4 (Soft Grayish Blue)
+
+#A2AAB5 (Light Cool Gray)
+
+#797D99 (Deep Blue-Gray)
+
+#8B93A7 (Muted Steel Blue)
