@@ -1,4 +1,4 @@
-import router from './router.js';
+import {router,Card}from './router.js';
 
 const app = Vue.createApp({
   mounted(){
@@ -6,4 +6,5 @@ const app = Vue.createApp({
   }
 });
 app.use(router);
+app.component('card',Card);
 app.mount('#app');
