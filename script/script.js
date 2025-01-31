@@ -5,12 +5,26 @@ const Card = {
       template: `
         <div class="card" ref="card">
           <div class="card-text">
-            <h2 :class="{'card-head': true, 'border-expand': cardIsVisible}">Verified & Secure Apps 🔒</h2>
-            <p class="card-subtext">Every app is scanned and verified for security, ensuring a safe download experience.</p>
+            <h2 :class="{'card-head': true, 'border-expand': cardIsVisible}">{{cardTitle}}</h2>
+            <p class="card-subtext">{{cardText}}</p>
           </div>
-          <img src="./images/phonemockup.png" :class="{'card-img':true,'resize':cardIsVisible}">
+          <img :src="cardImg" :class="{'card-img':true,'resize':cardIsVisible}">
         </div>
       `,
+      props:{
+        cardTitle:{
+          type:String,
+          required:true,
+        },
+        cardText:{
+          type: String,
+          required: true,
+        },
+        cardImg:{
+          type:String,
+          required:true,
+        }
+      },
       setup() {
         const card = ref(null);
         const cardIsVisible = ref(false);
