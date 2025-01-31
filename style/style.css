@@ -212,7 +212,7 @@ main{
 
 .progress-bar {
   height: 100%;
-  background-color: var(--red); /* Google blue color */
+  background: linear-gradient(170deg,var(--red),var(--deepred)); /* Google blue color */
   transition: width 0.1s ease-out;
 }
 .loading-wrapper {
