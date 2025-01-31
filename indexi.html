@@ -24,7 +24,10 @@
 <body>
 
 <div id="app">
-  <router-view></router-view>
+  <div v-if="isLoading" class="loading-wrapper">
+    <progressbar></progressbar>
+  </div>
+  <router-view v-else></router-view>
 </div>
 <script src="./script/script.js" type="module">
 </script>
