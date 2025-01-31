@@ -51,7 +51,7 @@ main{
   align-items:center;
   position: relative;
   animation-delay: 250ms;
-  animation:fade-up 450ms ease-out forwards;
+  animation:fade-up 750ms ease-out forwards;
 }
 .hero-btn:hover{
   opacity:0.5;
@@ -80,16 +80,16 @@ main{
   padding:15px;
   font-weight:bolder;
   text-shadow: 2px 2px 16px rgba(0,0,0,0.25);
-  animation:fade-up 200ms ease-in forwards;
+  animation:fade-up 750ms ease-out forwards;
 }
 @keyframes fade-up{
   0%{
     transform: translateY(67%);
-    opacity:0;
+  opacity:0;
   }
   100%{
-    transform: translateY(0%);
-    opacity:1;
+  transform: translateY(0%);
+  opacity:1;
   }
 }
 .hero-header{
@@ -108,8 +108,7 @@ main{
   width:82vw;
   padding:10px;
   text-align:left;
-  animation-delay:100ms;
-  animation:fade-up 350ms ease-in forwards;
+  animation:fade-up 750ms ease-out forwards;
 }
 
 .info{
@@ -133,6 +132,14 @@ main{
   margin:12px;
 }
 .card-img{
+  width:8em;
+  height:7em;
+  object-fit:cover;
+  border-radius: 8px;
+  margin:0 auto;
+  transition: all 750ms;
+}
+.resize{
   width:18em;
   height:17em;
   object-fit:cover;
@@ -152,8 +159,9 @@ main{
   width: 100vw;
   position: relative;
   overflow: hidden; /* Ensures the pseudo-element stays within bounds */
-  animation-delay: 4.2s;
-  animation:fade-up 350ms ease-in forwards;
+  transition: all 950ms;
+  transform: translateY(0%);
+  opacity:1;
 }
 
 .card-head::after {
@@ -164,16 +172,21 @@ main{
   width: 0;
   height: 1px;
   background-color: var(--white);
-  animation: border-expand 1.5s ease-in-out forwards;
+  width: 0;
+  transition:all 2s ease-in-out;
 }
-
-@keyframes border-expand {
-  from {
-    width: 0;
-  }
-  to {
-    width: 100%;
-  }
+.visible{
+  font-weight: normal;
+  font-size: 1.3em;
+  padding: 3px;
+  width: 100vw;
+  position: relative;
+  overflow: hidden; /* Ensures the pseudo-element stays within bounds */
+  transform: translateY(0%);
+  opacity:1;
+}
+.border-expand::after{
+  width: 100%;
 }
 .card-subtext{
   font-weight: normal;
@@ -181,6 +194,7 @@ main{
   font-family:"Smooch Sans",sans-serif;
   text-align:left;
   padding: 6px;
-  animation-delay: 3.5s;
-  animation:fade-up 350ms ease-in forwards;
+  transition: all 950ms;
+  transform: translateY(0%);
+  opacity:1;
 }
