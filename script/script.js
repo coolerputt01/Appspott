@@ -31,7 +31,7 @@ const Card = {
   template: `
         <div class="card" ref="card">
           <div class="card-text">
-            <h2 :class="{'card-head': true, 'border-expand': cardIsVisible}">{{cardTitle}}</h2>
+            <h1 :class="{'card-head': true, 'border-expand': cardIsVisible}">{{cardTitle}}</h1>
             <p class="card-subtext">{{cardText}}</p>
           </div>
           <img :src="cardImg" :class="{'card-img':true,'resize':cardIsVisible}">
