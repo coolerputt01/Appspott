@@ -34,7 +34,7 @@ const Card = {
             <h2 :class="{'card-head': true, 'border-expand': cardIsVisible}">{{cardTitle}}</h2>
             <p class="card-subtext">{{cardText}}</p>
           </div>
-          <img :src="cardImg" :class="{'card-img':true,'resize':cardIsVisible}">
+          <img :src="cardImg" :class="{'card-img':true,'resize':cardIsVisible}" alt="Appspott Image" title="Appspott Image">
         </div>
       `,
   props: {
