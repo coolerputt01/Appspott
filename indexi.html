@@ -12,7 +12,7 @@
   <script src="https://unpkg.com/@vueuse/shared"></script>
 
   <script src="https://unpkg.com/@vueuse/core"></script>
-  
+  <link rel="preload" as="lottie" href="https://lottie.host/41a5c906-db28-4a07-910e-7868b574d12e/CuXIXwPsUS.lottie">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap" rel="stylesheet">
@@ -26,11 +26,13 @@
 <div id="app">
   <div v-if="isLoading" class="loading-wrapper">
     <progressbar></progressbar>
+    <dotlottie-player src="https://lottie.host/41a5c906-db28-4a07-910e-7868b574d12e/CuXIXwPsUS.lottie" background="transparent" speed="1" style="width: 200px; height: 300px" loop autoplay loading="lazy"></dotlottie-player>
   </div>
   <router-view v-else></router-view>
 </div>
 <script src="./script/script.js" type="module">
 </script>
+<script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.3.0/alpine-ie11.js" integrity="sha512-6m6AtgVSg7JzStQBuIpqoVuGPVSAK5Sp/ti6ySu6AjRDa1pX8mIl1TwP9QmKXU+4Mhq/73SzOk6mbNvyj9MPzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 

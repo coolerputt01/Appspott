@@ -78,7 +78,7 @@ const app = Vue.createApp({
     return { isLoading };
   }
 });
-
+app.config.compilerOptions.isCustomElement = tag => tag === 'dotlottie-player';
 app.use(router);
 app.component('card', Card);
 app.component('progressbar', Loading);

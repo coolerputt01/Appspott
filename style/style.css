@@ -224,3 +224,58 @@ main{
   background-color: white;
   z-index: 9998;
 }
+
+dotlottie-player{
+  transform: translateX(-40%) translateY(60%);
+  animation:move-toright 4s ease-out forwards;
+}
+
+@keyframes move-toright{
+  0%{
+    transform: translateX(-40%) translateY(60%);
+  }
+  100%{
+    transform: translateX(70%) translateY(60%);
+  }
+}
+
+@media (min-width:768px){
+  .hero-header-logo{
+    display:none;
+  }
+  .hero-header{
+    width:90vw;
+    justify-content: flex-start;
+  }
+  .hero-text-header{
+    font-size:5em;
+    text-align:left;
+    margin:18px;
+  }
+  .hero-btn{
+    font-size:2em;
+    border:3.5px solid var(--white);
+    padding:20px;
+  }
+  .info-head-text{
+    font-size:4.2em;
+  }
+  .card{
+    margin:26px;
+  }
+  .card-head{
+    font-size:3.2em; 
+  }
+  .border-expand{
+    font-size: 3.5em;
+  }
+  .border-expand::after{
+    border:1px solid var(--white);
+  }
+  .card-subtext{
+    font-size:1.5em; 
+  }
+  .progress-bar-container{
+    height:10px;
+  }
+}
