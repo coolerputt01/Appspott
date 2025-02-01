@@ -294,6 +294,7 @@ dotlottie-player{
   border:1px solid var(--offwhite);
   border-radius: 25px;
   transition: 0.4s ease-in-out;
+  margin-top:50%;
 }
 
 .card1 {
