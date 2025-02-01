@@ -34,7 +34,7 @@ const SignIn = {
 <div class="card">
   <div class="card2">
     <form class="form">
-      <p id="heading">Login</p>
+      <p id="heading">Welcome</p>
       <div class="field">
         <svg
           viewBox="0 0 16 16"
@@ -76,12 +76,9 @@ const SignIn = {
         </button>
         <button class="button2">Sign Up</button>
       </div>
-      <button class="button3">Forgot Password</button>
     </form>
   </div>
-</div>
-
-  `
+</div>`
 }
 const routes = [
   { path: "/", component: Landing },
