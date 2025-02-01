@@ -29,7 +29,7 @@ const Loading = {
 
 const Card = {
   template: `
-        <div class="card" ref="card">
+        <div class="cardv" ref="card">
           <div class="card-text">
             <h2 :class="{'card-head': true, 'border-expand': cardIsVisible}">{{cardTitle}}</h2>
             <p class="card-subtext">{{cardText}}</p>
