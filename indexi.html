@@ -20,6 +20,7 @@
   <title>Appspott - Download the Latest Free Apps for Android & iOS</title>
   <link rel="icon" href="https://i.imghippo.com/files/UsM9149Od.png"/>
   <link rel="stylesheet" href="./style/style.css">
+  <link rel="manifest" href="manifest.json">
   <link rel="shortcut icon" href="https://i.imghippo.com/files/UsM9149Od.png"/>
   <script src="https://unpkg.com/vue@3"></script>
   <script src="https://unpkg.com/vue-router@4"></script>
@@ -46,6 +47,16 @@
 if (window.location.hostname === "www.appspott.onrender.com") {
     window.location.href = "https://appspott.onrender.com" + window.location.pathname;
 }
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/service-worker.js')
+      .then((registration) => {
+        console.log('Service Worker registered with scope:', registration.scope);
+      })
+      .catch((error) => {
+        console.error('Service Worker registration failed:', error);
+      });
+  }
 </script>
 </head>
 

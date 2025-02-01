@@ -1,0 +1,21 @@
+{
+  "name": "Appspott",
+  "short_name": "Appspott",
+  "start_url": "/Appspott/",
+  "scope": "/Appspott/",
+  "display": "standalone",
+  "background_color": "#e3554b",
+  "theme_color": "#000",
+  "icons": [
+    {
+      "src": "https://i.imghippo.com/files/UsM9149Od.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.imghippo.com/files/UsM9149Od.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
