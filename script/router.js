@@ -108,21 +108,21 @@ data(){
   }
 },
 methods:{
-emailExists(email){
+async emailExists(email){
   const usersRef = collection(db, "users");
   const q = query(usersRef, where("email", "==", email));
   const querySnapshot = await getDocs(q);
-  return !querySnapshot.empty; // Returns true if email exists
+  return !querySnapshot.empty;
 }
 
- async login(){
+ async login() {
   try {
     await signInWithEmailAndPassword(auth, email.value, password.value);
     alert("Login successful!");
   } catch(error) {
     console.error(error.message);
   }
-};
+}
 
 async signup(){
   try{
@@ -151,5 +151,3 @@ const router = VueRouter.createRouter({
   history: VueRouter.createWebHashHistory(),
   routes
 });
-
-export default router;
