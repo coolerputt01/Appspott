@@ -1,174 +1,65 @@
-Script.js
+<script setup>
+import { ref, onMounted } from "vue";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 
-import router from './router.js';
-const { ref, onMounted } = Vue; // Import Vue 3 functions
-const { useIntersectionObserver } = VueUse; // Import VueUse functions
-
-const Loading = {
-  template: `  <div class="progress-bar-container">
-    <div
-      class="progress-bar"
-      :style="{ width: progress + '%' }"
-    ></div>
-  </div>`,
-  setup() {
-    const progress = ref(0);
-
-    // Function to simulate progress bar
-    const startProgress = () => {
-      progress.value = 0;
-      const interval = setInterval(() => {
-        if (progress.value < 100) {
-          progress.value += Math.random() * 5; // Adjust the speed of the progress
-        } else {
-          clearInterval(interval);
-        }
-      }, 100);
-    };
-
-    startProgress();
-  }
-}
-
-const Card = {
-  template: `
-        <div class="card" ref="card">
-          <div class="card-text">
-            <h2 :class="{'card-head': true, 'border-expand': cardIsVisible}">{{cardTitle}}</h2>
-            <p class="card-subtext">{{cardText}}</p>
-          </div>
-          <img :src="cardImg" :class="{'card-img':true,'resize':cardIsVisible}">
-        </div>
-      `,
-  props: {
-    cardTitle: {
-      type: String,
-      required: true,
-    },
-    cardText: {
-      type: String,
-      required: true,
-    },
-    cardImg: {
-      type: String,
-      required: true,
-    }
-  },
-  setup() {
-    const card = ref(null);
-    const cardIsVisible = ref(false);
-
-    useIntersectionObserver(
-      card,
-      ([entry]) => {
-        cardIsVisible.value = entry.isIntersecting;
-      }
-    );
-
-    return { card, cardIsVisible };
-  },
+// Firebase Config
+const firebaseConfig = {
+  apiKey: "AIzaSyD8VDvjLIQ4D--3Ss6siuT4dSGXXzU0Kq4",
+  authDomain: "t-86e9c.firebaseapp.com",
+  projectId: "t-86e9c",
+  storageBucket: "t-86e9c.firebasestorage.app",
+  messagingSenderId: "528369062614",
+  appId: "1:528369062614:web:7aaee6eb51ebac5c96ef77"
 };
-const app = Vue.createApp({
-  mounted() {
-    console.log("Main Vue 'App' is *mounted*");
-    const isLoading = ref(true);
 
-    // Simulating a delay to mimic page loading using useTimeoutFn
-    useTimeoutFn(() => {
-      isLoading.value = false; // Stop loading after 3 seconds
-    }, 3000); // Replace with actual load condition if needed
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+// Vue state
+const username = ref("");
+const password = ref("");
+
+// Login function
+const login = async () => {
+  try {
+    await signInWithEmailAndPassword(auth, username.value, password.value);
+    alert("Login successful!");
+  } catch (error) {
+    alert(error.message);
   }
-});
-app.use(router);
-app.component('card', Card);
-app.component('progressb', Loading)
-app.mount('#app');
+};
 
-
-
-Router.js
-
-
-
-const Landing = {
-  template:`
-  <section id="landing">
-    <main class="main">
-      <div class="hero-text">
-        <div class="hero-header">
-          <img alt="Appspott App logo" src="https://i.imghippo.com/files/UsM9149Od.png" class="hero-header-logo">
-          <h2 class="hero-text-header">Appspott</h2>
-        </div>
-        <p class="hero-text-subtext">
-          Discover and download your favorite apps effortlessly with Appspott. Explore a vast collection of apps, updated regularly, and get secure, fast downloads—all in one place. Your app hub starts here!
-        </p>
-      </div>
-      <div class="action-btn">
-      <button class="hero-btn">Explore apps now</button>
-      </div>
-    </main>
-    <section class="info">
-      <h2 class="info-head-text">Appspott Features</h2>
-      <card card-title="Verified & Secure Apps 🔒" card-text="Every app is scanned and verified for security, ensuring a safe download experience." card-img="./images/pm.png"></card>
-      <card card-title="Lightning-Fast Downloads 🚀" card-text="Get your favorite apps quickly with optimized download speeds and minimal waiting time." card-img="./images/pm2.png"></card>
-      <card card-title="Exclusive & Early Access Apps 🌟" card-text="Discover apps before they hit mainstream stores, including exclusive beta releases." card-img="./images/pm3.png"></card>
-    </section>
-  </section>`
-}
-const routes = [
-  { path: "/", component: Landing }
-];
-
-// Create router instance
-const router = VueRouter.createRouter({
-  history: VueRouter.createWebHashHistory(), // Make sure to reference VueRouter
-  routes
-});
-
-export default router;
-
-
-
-Index.html
-
-
-
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Appspott</title>
-  <link rel="stylesheet" href="./style/style.css">
-  <link rel="shortcut icon" href="https://i.imghippo.com/files/UsM9149Od.png"/>
-  <script src="https://unpkg.com/vue@3"></script>
-  <script src="https://unpkg.com/vue-router@4"></script>
-  <script src="https://unpkg.com/@vueuse/shared"></script>
-
-  <script src="https://unpkg.com/@vueuse/core"></script>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Smooch+Sans:wght@100..900&family=Sora:wght@100..800&display=swap" rel="stylesheet">
-</head>
-
-<body>
-
-<div id="app">
-  <div v-if="isLoading" class="loading-wrapper">
-    <progressb></progressb>
-  </div>
-  <div v-else>
-     <router-view></router-view>
-  </div>
-</div>
-<script src="./script/script.js" type="module">
+// Signup function
+const signup = async () => {
+  try {
+    await createUserWithEmailAndPassword(auth, username.value, password.value);
+    alert("Account created successfully!");
+  } catch (error) {
+    alert(error.message);
+  }
+};
 </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.3.0/alpine-ie11.js" integrity="sha512-6m6AtgVSg7JzStQBuIpqoVuGPVSAK5Sp/ti6ySu6AjRDa1pX8mIl1TwP9QmKXU+4Mhq/73SzOk6mbNvyj9MPzQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-</body>
 
-</html>
+<template>
+  <div class="card">
+    <div class="card2">
+      <form class="form" @submit.prevent="login">
+        <p id="heading">Welcome</p>
+        <div class="field">
+          <input type="text" class="input-field" placeholder="Username" autocomplete="off" v-model="username" />
+        </div>
+        <div class="field">
+          <input type="password" class="input-field" placeholder="Password" v-model="password" />
+        </div>
+        <div class="btn">
+          <button type="submit" class="button1">Login</button>
+          <button type="button" class="button2" @click="signup">Sign Up</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>

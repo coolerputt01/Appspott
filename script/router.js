@@ -1,3 +1,24 @@
+  // Import the functions you need from the SDKs you need
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getFirestore, collection, query, where, getDocs, setDoc, doc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
+import { getDatabase, set } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
+
+// Your web app's Firebase configuration
+const firebaseConfig = {
+  apiKey: "AIzaSyD8VDvjLIQ4D--3Ss6siuT4dSGXXzU0Kq4",
+  authDomain: "t-86e9c.firebaseapp.com",
+  projectId: "t-86e9c",
+  storageBucket: "t-86e9c.firebasestorage.app",
+  messagingSenderId: "528369062614",
+  appId: "1:528369062614:web:7aaee6eb51ebac5c96ef77"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+
+
 const Landing = {
   template:`
   <section id="landing">
@@ -49,11 +70,12 @@ const SignIn = {
           ></path>
         </svg>
         <input
-          type="text"
+          type="email"
           class="input-field"
-          placeholder="Username"
+          placeholder="E-mail"
           autocomplete="off"
-        />
+          v-model="email"
+          />
       </div>
       <div class="field">
         <svg
@@ -68,18 +90,57 @@ const SignIn = {
             d="M8 1a2 2 0 0 1 2 2v4H6V3a2 2 0 0 1 2-2zm3 6V3a3 3 0 0 0-6 0v4a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"
           ></path>
         </svg>
-        <input type="password" class="input-field" placeholder="Password" />
+        <input type="password" class="input-field" placeholder="Password" v-model="password"/>
       </div>
       <div class="btn">
-        <button class="button1">
+        <button class="button1" @click.prevent="login">
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         </button>
-        <button class="button2">Sign Up</button>
+        <button class="button2" @click.prevent="signup">Sign Up</button>
       </div>
     </form>
   </div>
-</div>`
+</div>`,
+data(){
+  return{
+  email:"",
+  password:"",
+  }
+},
+methods:{
+emailExists(email){
+  const usersRef = collection(db, "users");
+  const q = query(usersRef, where("email", "==", email));
+  const querySnapshot = await getDocs(q);
+  return !querySnapshot.empty; // Returns true if email exists
 }
+
+ async login(){
+  try {
+    await signInWithEmailAndPassword(auth, email.value, password.value);
+    alert("Login successful!");
+  } catch(error) {
+    console.error(error.message);
+  }
+};
+
+async signup(){
+  try{
+    if(await emailExists(email.value)){
+      alert("wrong");
+    }else{
+    const userCredential = await createUserWithEmailAndPassword(auth, email.value, password.value);
+    const user = userCredential.user;
+    await sendEmailVerification(user);
+    }
+  }catch(error){
+    console.error(error.message);
+  }
+}
+}
+}
+
+
 const routes = [
   { path: "/", component: Landing },
   { path:"/signin",component:SignIn},
@@ -87,7 +148,7 @@ const routes = [
 
 // Create router instance
 const router = VueRouter.createRouter({
-  history: VueRouter.createWebHashHistory(), // Make sure to reference VueRouter
+  history: VueRouter.createWebHashHistory(),
   routes
 });
 
