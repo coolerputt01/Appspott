@@ -202,9 +202,35 @@ async signup(){
 },
 }
 }
+const Fapp = {
+  template:`
+  <div class="fapp">
+    <img :src="img" alt="{{ name }}">
+  </div>
+  `,
+  props:{
+    img:{
+      type:String,
+      required:true,
+    },
+    name:{
+      type:String,
+      required:true,
+    },
+  }
+}
 
 const HomePage = {
   template:`<section class="home">
+    <div class="featured-apps">
+      <div class="fapps-text">
+        <h1>Featured Apps🌟</h2>
+      </div>
+      <div class="fapps-carousel">
+        <fapp img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEk1FIJzHRgFKqtu-xH6azmwwweJ_PlyLjHhdlTLZLsw&s" name="Fortnite"><fapp>
+      </div>
+    </div>
+  
   </section>`
 }
 
@@ -300,5 +326,6 @@ const vueApp = Vue.createApp({
 vueApp.config.compilerOptions.isCustomElement = tag => tag === 'dotlottie-player';
 vueApp.use(router);
 vueApp.component('card', Card);
+vueApp.component('fapp',Fapp);
 vueApp.component('progressbar', Loading);
 vueApp.mount('#app');
