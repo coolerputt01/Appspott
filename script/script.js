@@ -148,8 +148,22 @@ async login() {
   try {
     await signInWithEmailAndPassword(auth, this.email, this.password);
     alert("Login successful!");
+    const errorToast = document.querySelector('.toastv');
+    const errorText = document.querySelector('.message-text');
+
+    errorText.textContent = "Login successful!";
+    errorText.style.color = "green";
+    errorToast.classList.add('showv');
   } catch(error) {
     console.error(error.message);
+    const errorToast = document.querySelector('.toastv');
+    const errorText = document.querySelector('.message-text');
+
+    errorText.textContent = error.message;
+    errorToast.classList.add('showv');
+    setTimeout(() => {
+  errorToast.classList.remove('showv');
+}, 3000);
   }
 },
 async signup(){
@@ -157,14 +171,28 @@ async signup(){
     if(await this.emailExists(this.email)){
       alert("wrong");
     }else{
+      alert('hi')
+    }
     const userCredential = await createUserWithEmailAndPassword(auth, this 
     .email, this.password);
     const user = userCredential.user;
     await sendEmailVerification(user);
-    console.log("It works.")
-    }
+    const errorToast = document.querySelector('.toastv');
+    const errorText = document.querySelector('.message-text');
+
+    errorText.textContent = "Please Verify your email.";
+    errorToast.classList.add('showv');
+    
   }catch(error){
     console.error(error.message);
+    const errorToast = document.querySelector('.toastv');
+    const errorText = document.querySelector('.message-text');
+
+    errorText.textContent = error.message;
+    errorToast.classList.add('showv');
+    setTimeout(() => {
+  errorToast.classList.remove('showv');
+}, 3000);
   }
 },
 }
