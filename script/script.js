@@ -150,15 +150,15 @@ async login() {
     alert("Login successful!");
     const errorToast = document.querySelector('.toastv');
     const errorText = document.querySelector('.message-text');
-
-    errorText.textContent = "Login successful!";
     errorText.style.color = "green";
+    errorText.textContent = "Login successful!";
+    document.querySelector('.sub-text').textContent = "";
     errorToast.classList.add('showv');
   } catch(error) {
     console.error(error.message);
     const errorToast = document.querySelector('.toastv');
     const errorText = document.querySelector('.message-text');
-
+    errorText.style.color = "red";
     errorText.textContent = error.message;
     errorToast.classList.add('showv');
     setTimeout(() => {
@@ -179,15 +179,19 @@ async signup(){
     await sendEmailVerification(user);
     const errorToast = document.querySelector('.toastv');
     const errorText = document.querySelector('.message-text');
-
+    errorText.style.color = "green";
     errorText.textContent = "Please Verify your email.";
+    document.querySelector('.sub-text').textContent = "";
     errorToast.classList.add('showv');
+    setTimeout(() => {
+    errorToast.classList.remove('showv');
+}, 3000);
     
   }catch(error){
     console.error(error.message);
     const errorToast = document.querySelector('.toastv');
     const errorText = document.querySelector('.message-text');
-
+    errorText.style.color = "red";
     errorText.textContent = error.message;
     errorToast.classList.add('showv');
     setTimeout(() => {

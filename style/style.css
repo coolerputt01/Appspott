@@ -427,14 +427,14 @@ dotlottie-player{
   align-items: center;
   justify-content: center;
   gap: 15px;
-  transition: all 5s;
-  display:none;
+  transition: all 750ms;
+  visibility: hidden;
   opacity:0;
   transform: translateY(0%) translateX(5%);
   margin:12px;
 }
 .showv{
-  display:flex;
+  visibility:visible;
   opacity:1;
   transform: translateY(110%) translateX(5%);
 }
