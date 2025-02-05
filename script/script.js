@@ -154,6 +154,7 @@ async login() {
     errorText.textContent = "Login successful!";
     document.querySelector('.sub-text').textContent = "";
     errorToast.classList.add('showv');
+    router.push("/home");
   } catch(error) {
     console.error(error.message);
     const errorToast = document.querySelector('.toastv');
@@ -206,6 +207,7 @@ async signup(){
 const routes = [
   { path: "/", component: Landing },
   { path:"/signin",component:SignIn},
+  { path:"/home", component:HomePage},
 ];
 
 // Create router instance
@@ -239,6 +241,12 @@ const Loading = {
     return { progress }; // ✅ Return progress so Vue tracks it
   }
 };
+
+const HomePage = {
+  template:`<section class="home">
+  </section>`
+}
+
 
 const Card = {
   template: `
