@@ -203,6 +203,10 @@ async signup(){
 }
 }
 
+const HomePage = {
+  template:`<section class="home">
+  </section>`
+}
 
 const routes = [
   { path: "/", component: Landing },
@@ -241,12 +245,6 @@ const Loading = {
     return { progress }; // ✅ Return progress so Vue tracks it
   }
 };
-
-const HomePage = {
-  template:`<section class="home">
-  </section>`
-}
-
 
 const Card = {
   template: `
