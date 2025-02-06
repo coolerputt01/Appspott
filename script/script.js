@@ -204,8 +204,9 @@ async signup(){
 }
 const Fapp = {
   template:`
-  <div class="fapp">
-    <img :src="img" alt="{{ name }}">
+  <div :class="{'fapp':true,'wellshown':fappIsVisible}" ref="fapp">
+    <img :src="img" alt="{{ name }}" class="fapp-img">
+    <p class="fapp-name">{{name}}</p>
   </div>
   `,
   props:{
@@ -217,6 +218,19 @@ const Fapp = {
       type:String,
       required:true,
     },
+  },
+  setup(){
+    const fapp = ref(null);
+    const fappIsVisible = ref(false);
+
+    useIntersectionObserver(
+      fapp,
+      ([entry]) => {
+        fappIsVisible.value = entry.isIntersecting;
+      }
+    );
+
+    return { fapp, fappIsVisible };
   }
 }
 
@@ -224,10 +238,15 @@ const HomePage = {
   template:`<section class="home">
     <div class="featured-apps">
       <div class="fapps-text">
-        <h1>Featured Apps🌟</h2>
+        <h1>Featured Apps🌟</h1>
       </div>
-      <div class="fapps-carousel">
-        <fapp img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEk1FIJzHRgFKqtu-xH6azmwwweJ_PlyLjHhdlTLZLsw&s" name="Fortnite"><fapp>
+      <div class="fapp-carousel-container">
+        <div class="fapps-carousel">
+          <fapp img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEk1FIJzHRgFKqtu-xH6azmwwweJ_PlyLjHhdlTLZLsw&s" name="Fortnite"></fapp>
+          <fapp img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEk1FIJzHRgFKqtu-xH6azmwwweJ_PlyLjHhdlTLZLsw&s" name="Fortnite"></fapp>
+          <fapp img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEk1FIJzHRgFKqtu-xH6azmwwweJ_PlyLjHhdlTLZLsw&s" name="Fortnite"></fapp>
+          <fapp img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEk1FIJzHRgFKqtu-xH6azmwwweJ_PlyLjHhdlTLZLsw&s" name="Fortnite"></fapp>
+        </div>
       </div>
     </div>
   

@@ -1,0 +1,56 @@
+mix-blend-mode is a CSS property that controls how an element’s content blends with the content behind it. It determines how colors mix when elements overlap.
+
+Usage:
+
+.element {
+  mix-blend-mode: multiply;
+}
+
+Common Values:
+
+normal (default) → No blending
+
+multiply → Darkens the colors by multiplying the background and element colors
+
+screen → Lightens the colors by inverting, multiplying, and inverting again
+
+overlay → A mix of multiply and screen, depending on brightness
+
+darken → Keeps the darker color of the background and element
+
+lighten → Keeps the lighter color of the background and element
+
+difference → Subtracts pixel values, creating high contrast effects
+
+exclusion → Similar to difference, but with lower contrast
+
+color-dodge → Brightens the background based on the element
+
+color-burn → Darkens the background based on the element
+
+hard-light / soft-light → Adjusts contrast and brightness dynamically
+
+hue, saturation, color, luminosity → Adjusts based on color properties
+
+
+Example:
+
+Blending text with the background:
+
+<div class="blend-text">Blended Text</div>
+
+<style>
+  .blend-text {
+    font-size: 50px;
+    color: white;
+    mix-blend-mode: difference;
+    background: black;
+    padding: 20px;
+  }
+</style>
+
+Browser Support:
+
+Most modern browsers support mix-blend-mode, but some effects may not work as expected in older versions of IE.
+
+Let me know if you need a specific effect!

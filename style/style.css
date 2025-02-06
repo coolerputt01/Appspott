@@ -488,3 +488,41 @@ dotlottie-player{
   color: #555;
   cursor: pointer;
 }
+
+.home{
+  background:linear-gradient(350deg,var(--black),var(--reddishgrey),var(--red));
+  padding:20px;
+}
+.fapp-img{
+  width:45vw;
+  height:30vh;
+  border-radius:24px;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  object-fit:cover;
+}
+.fapp{
+  margin:12px;
+  scale:0.7;
+  transition:all 750ms;
+  opacity:0.4;
+}
+.wellshown{
+  margin:12px;
+  scale:0.7;
+  transition:all 750ms;
+  scale:1;
+  opacity:1;
+}
+.fapp-carousel-container{
+  overflow: hidden;
+  width:100vw;
+  height:100%;
+}
+.fapps-carousel{
+  overflow-x: scroll;
+  width:100vw;
+  height:100%;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+}
