@@ -490,8 +490,11 @@ dotlottie-player{
 }
 
 .home{
-  background:linear-gradient(350deg,var(--black),var(--reddishgrey),var(--red));
+  background:linear-gradient(-70deg,var(--black),var(--reddishgrey),var(--reddishgrey),var(--red),var(--red));
   padding:20px;
+}
+.section-header{
+  padding: 12px;
 }
 .fapp-img{
   width:45vw;
@@ -499,12 +502,14 @@ dotlottie-player{
   border-radius:24px;
   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
   object-fit:cover;
+  mix-blend-mode: darken;
 }
 .fapp{
   margin:12px;
   scale:0.7;
   transition:all 750ms;
   opacity:0.4;
+  mix-blend-mode: darken;
 }
 .wellshown{
   margin:12px;
@@ -512,6 +517,7 @@ dotlottie-player{
   transition:all 750ms;
   scale:1;
   opacity:1;
+  mix-blend-mode: screen;
 }
 .fapp-carousel-container{
   overflow: hidden;

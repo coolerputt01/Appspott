@@ -238,7 +238,7 @@ const HomePage = {
   template:`<section class="home">
     <div class="featured-apps">
       <div class="fapps-text">
-        <h1>Featured Apps🌟</h1>
+        <h1 class="section-header">Featured Apps🌟</h1>
       </div>
       <div class="fapp-carousel-container">
         <div class="fapps-carousel">
