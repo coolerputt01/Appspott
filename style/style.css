@@ -240,6 +240,10 @@ dotlottie-player{
 }
 
 @media (min-width:768px){
+  .main{
+    width:100%;
+    height:100%;
+  }
   .hero-header-logo{
     display:none;
   }
@@ -255,7 +259,7 @@ dotlottie-player{
   .hero-btn{
     font-size:2em;
     border:3.5px solid var(--white);
-    padding:20px;
+    padding:12px;
   }
   .info-head-text{
     font-size:4.2em;
