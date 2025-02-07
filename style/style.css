@@ -243,6 +243,8 @@ dotlottie-player{
   .main{
     width:100%;
     height:100%;
+    overflow: hidden;
+    padding: 2%;
   }
   .hero-header-logo{
     display:none;
@@ -257,9 +259,9 @@ dotlottie-player{
     margin:18px;
   }
   .hero-btn{
-    font-size:2em;
+    font-size:1.2em;
     border:3.5px solid var(--white);
-    padding:12px;
+    padding:18px;
   }
   .info-head-text{
     font-size:4.2em;
@@ -281,6 +283,11 @@ dotlottie-player{
   }
   .progress-bar-container{
     height:10px;
+  }
+  .form{
+    width:40vw;
+    justify-content: center;
+    margin:0 auto;
   }
 }
 
@@ -434,12 +441,14 @@ dotlottie-player{
   transition: all 750ms;
   visibility: hidden;
   opacity:0;
+  display: none;
   transform: translateY(0%) translateX(5%);
   margin:12px;
 }
 .showv{
   visibility:visible;
   opacity:1;
+  display: block;
   transform: translateY(110%) translateX(5%);
 }
 .wave {
