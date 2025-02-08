@@ -451,6 +451,13 @@ dotlottie-player{
   display: block;
   transform: translateY(110%) translateX(5%);
 }
+.fapp-text{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  padding: 8px;
+}
 .wave {
   position: absolute;
   transform: rotate(90deg);

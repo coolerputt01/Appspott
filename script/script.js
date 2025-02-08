@@ -3,7 +3,7 @@ const { useTimeoutFn,useIntersectionObserver } = VueUse;
 
   // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, sendEmailVerification, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js";
 import { getFirestore, collection, query, where, getDocs, setDoc, doc } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-firestore.js";
 import { getDatabase, set } from "https://www.gstatic.com/firebasejs/11.2.0/firebase-database.js";
 
@@ -21,6 +21,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
+const FROID_URL = 'https://cors-anywhere.herokuapp.com/https://f-droid.org/repo/index-v2.json';
 
 const Landing = {
   template:`
@@ -147,7 +148,6 @@ async emailExists(email){
 async login() {
   try {
     await signInWithEmailAndPassword(auth, this.email, this.password);
-    alert("Login successful!");
     const errorToast = document.querySelector('.toastv');
     const errorText = document.querySelector('.message-text');
     errorText.style.color = "green";
@@ -177,7 +177,6 @@ async signup(){
     const userCredential = await createUserWithEmailAndPassword(auth, this 
     .email, this.password);
     const user = userCredential.user;
-    await sendEmailVerification(user);
     const errorToast = document.querySelector('.toastv');
     const errorText = document.querySelector('.message-text');
     errorText.style.color = "green";
@@ -206,7 +205,9 @@ const Fapp = {
   template:`
   <div :class="{'fapp':true,'wellshown':fappIsVisible}" ref="fapp">
     <img :src="img" alt="{{ name }}" class="fapp-img">
-    <p class="fapp-name">{{name}}</p>
+    <div class="fapp-text"> 
+    <p class="fapp-name">{{name}}</p> <i class="fa-solid fa-caret-right"></i>
+    </div>
   </div>
   `,
   props:{
@@ -236,6 +237,18 @@ const Fapp = {
 
 const HomePage = {
   template:`<section class="home">
+    <nav class="field">
+    <input
+          type="text"
+          class="input-field"
+          placeholder="Search"
+          autocomplete="on"
+         
+          />
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"
+          height="16"
+          width="16"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
+    </nav>
     <div class="featured-apps">
       <div class="fapps-text">
         <h1 class="section-header">Featured Apps🌟</h1>
@@ -249,8 +262,22 @@ const HomePage = {
         </div>
       </div>
     </div>
-  
-  </section>`
+  </section>`,
+  methods: {
+    async fetchApps(URL) {
+      try {
+        // Use the CORS proxy
+        const response = await fetch(URL);
+        const data = await response.json();
+        console.log(data);  // Display the data in the console for debugging
+      } catch (error) {
+        console.error('Error fetching apps:', error.message);
+      }
+    }
+  },
+  mounted() {
+    this.fetchApps(FROID_URL);
+  }
 }
 
 const routes = [
