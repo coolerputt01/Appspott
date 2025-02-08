@@ -21,7 +21,22 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-const FROID_URL = 'https://cors-anywhere.herokuapp.com/https://f-droid.org/repo/index-v2.json';
+/*const url = 'https://app-store-and-google-play-api.p.rapidapi.com/v1/google-play/search?country=us&language=en';
+const options = {
+	method: 'GET',
+	headers: {
+		'x-rapidapi-key': '777d260b7fmsh8b2cba0726ad101p1b3f6djsndf22e7cf8658',
+		'x-rapidapi-host': 'app-store-and-google-play-api.p.rapidapi.com'
+	}
+};
+
+try {
+	const response = await fetch(url, options);
+	const result = await response.text();
+	console.log(result);
+} catch (error) {
+	console.error(error);
+}*/
 
 const Landing = {
   template:`
