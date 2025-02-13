@@ -543,7 +543,7 @@ dotlottie-player{
 }
 .info-container{
   display:flex;
-  justify-content:center;
+  justify-content:space-between;
   flex-direction: row;
   align-items:center;
   gap:10px;
@@ -554,18 +554,22 @@ dotlottie-player{
   flex-direction: column;
   align-items:center;
   gap:12px;
+  width:100%;
 }
 .search-text > *{
   text-align:left;
 }
 .search-title{
   font-size: 1.2em;
+  text-align:left;
+  width:100%;
 }
 .search-desc{
   font-size: 0.9em;
+  text-align:left;
+  width:100%;
 }
 .search-container{
-  display:flex;
   justify-content:center;
   align-items:center;
   flex-direction:column;
@@ -575,6 +579,7 @@ dotlottie-player{
   border: 0.5px var(--white) solid;
   border-radius: 18px;
   overflow-y: scroll;
+  display: none;
 }
 .search-card:hover{
   opacity: 0.7;

@@ -240,14 +240,28 @@ const SearchCard = {
   template:`
     <div class="search-card">
       <div class="info-container">
-        <img class="search-img"src="https://www.pixelstalk.net/wp-content/uploads/images6/Fortnite-HD-Wallpaper-4k-Free-download-620x349.jpg">
+        <img class="search-img" :src="img" :alt="title">
         <div class="search-text">
-          <h2 class="search-title">Fortnite</h2>
-          <p class="search-desc">Fortnite is an online video game and game platform developed by Epic Games.</p>
+          <h2 class="search-title">{{ title }}</h2>
+          <p class="search-desc">{{ desc }}</p>
         </div>
         </div>
     </div>
   `,
+  props:{
+      img:{
+        type:String,
+        required:true,
+      },
+      title:{
+        type:String,
+        required:true,
+      },
+      desc:{
+        type:String,
+        required:true,
+      },
+  }
 }
 
 const HomePage = {
@@ -266,12 +280,7 @@ const HomePage = {
           width="16"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
     </nav>
     <div class="search-container">
-      <search-card></search-card>
-      <search-card></search-card>
-      <search-card></search-card>
-      <search-card></search-card>
-      <search-card></search-card>
-      <search-card></search-card>
+      <search-card v-for="sapp in searchresult" :img="sapp.app_icon" :title="sapp.app_name" :desc="sapp.app_name.slice(0,17) + '...' "></search-card>
     </div>
     <div class="featured-apps">
       <div class="fapps-text">
@@ -299,6 +308,7 @@ const HomePage = {
      featuredresult:[],
      productiveresult:[],
      search:'',
+     searchresult:[],
     }
   },
   methods: {
@@ -314,7 +324,7 @@ const HomePage = {
       try {
         const response = await fetch(url, options);
         const featuredresults = await response.json();
-        this.featuredresult = featuredresults.data;
+        this.featuredresult = featuredresults.data.apps;
         console.log(featuredresults);
       } catch (error) {
         console.error(error);
@@ -339,7 +349,7 @@ const HomePage = {
     }
 },
 async searchApps(search){
-  const SEARCH_URL = `https://store-apps.p.rapidapi.com/search?${search}=notes&region=us&language=en`;
+  const SEARCH_URL = `https://store-apps.p.rapidapi.com/search?q=${this.search}&region=us&language=en`;
   const options = {
     method: 'GET',
     headers: {
@@ -350,20 +360,25 @@ async searchApps(search){
   
   try {
     const response = await fetch(SEARCH_URL, options);
-    const productiveresults = await response.json();
-    this.productiveresult = productiveresults.data;
-    console.log(productiveresults);
+    const searchresults = await response.json();
+    this.searchresult = searchresults.data.apps;
+    console.log(searchresults);
   } catch (error) {
     console.error(error);
   }
 },
 },
   mounted() {
-    //this.fetchFeaturedApps(FEATURED_URL);
-    //this.fetchProductiveApps(PRODUCTIVE_URL);
+    //this.fetchFeaturedApps(FEATURED_UL);
+    //this.fetchProductiveApps(PRODUCTIVE_RL);
       const searchInput = document.querySelector('#search');
       searchInput.addEventListener('input', (event) => {
-        this.searchApps(event.target.value); // Use event.target.value to get the input value
+        if(event.target.value.length > 3){
+          this.searchApps(event.target.value);
+          document.querySelector('.search-container').style.display = 'flex' // Use event.target.value to get the input value
+        }else{
+          return;
+        }
       });
   }
 }
