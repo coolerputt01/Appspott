@@ -21,22 +21,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
-/*const url = 'https://app-store-and-google-play-api.p.rapidapi.com/v1/google-play/search?country=us&language=en';
-const options = {
-	method: 'GET',
-	headers: {
-		'x-rapidapi-key': '777d260b7fmsh8b2cba0726ad101p1b3f6djsndf22e7cf8658',
-		'x-rapidapi-host': 'app-store-and-google-play-api.p.rapidapi.com'
-	}
-};
-
-try {
-	const response = await fetch(url, options);
-	const result = await response.text();
-	console.log(result);
-} catch (error) {
-	console.error(error);
-}*/
+const FEATURED_URL = 'https://store-apps.p.rapidapi.com/top-free-games?category=GAME_RACING&limit=5&region=us&language=en';
+const PRODUCTIVE_URL = 'https://store-apps.p.rapidapi.com/top-free-apps?category=BOOKS_AND_REFERENCE&limit=5&region=us&language=en';
 
 const Landing = {
   template:`
@@ -219,7 +205,7 @@ async signup(){
 const Fapp = {
   template:`
   <div :class="{'fapp':true,'wellshown':fappIsVisible}" ref="fapp">
-    <img :src="img" alt="{{ name }}" class="fapp-img">
+    <img :src="img" :alt="name" class="fapp-img">
     <div class="fapp-text"> 
     <p class="fapp-name">{{name}}</p> <i class="fa-solid fa-caret-right"></i>
     </div>
@@ -250,6 +236,20 @@ const Fapp = {
   }
 }
 
+const SearchCard = {
+  template:`
+    <div class="search-card">
+      <div class="info-container">
+        <img class="search-img"src="https://www.pixelstalk.net/wp-content/uploads/images6/Fortnite-HD-Wallpaper-4k-Free-download-620x349.jpg">
+        <div class="search-text">
+          <h2 class="search-title">Fortnite</h2>
+          <p class="search-desc">Fortnite is an online video game and game platform developed by Epic Games.</p>
+        </div>
+        </div>
+    </div>
+  `,
+}
+
 const HomePage = {
   template:`<section class="home">
     <nav class="field">
@@ -258,40 +258,113 @@ const HomePage = {
           class="input-field"
           placeholder="Search"
           autocomplete="on"
-         
+          v-model="search"
+          id="search"
           />
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor"
           height="16"
           width="16"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
     </nav>
+    <div class="search-container">
+      <search-card></search-card>
+      <search-card></search-card>
+      <search-card></search-card>
+      <search-card></search-card>
+      <search-card></search-card>
+      <search-card></search-card>
+    </div>
     <div class="featured-apps">
       <div class="fapps-text">
         <h1 class="section-header">Featured Apps🌟</h1>
       </div>
       <div class="fapp-carousel-container">
         <div class="fapps-carousel">
-          <fapp img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEk1FIJzHRgFKqtu-xH6azmwwweJ_PlyLjHhdlTLZLsw&s" name="Fortnite"></fapp>
-          <fapp img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEk1FIJzHRgFKqtu-xH6azmwwweJ_PlyLjHhdlTLZLsw&s" name="Fortnite"></fapp>
-          <fapp img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEk1FIJzHRgFKqtu-xH6azmwwweJ_PlyLjHhdlTLZLsw&s" name="Fortnite"></fapp>
-          <fapp img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTEk1FIJzHRgFKqtu-xH6azmwwweJ_PlyLjHhdlTLZLsw&s" name="Fortnite"></fapp>
+          <fapp v-for="fapp in featuredresult" :img="fapp.app_icon" :name="fapp.app_name"></fapp>
+        </div>
+      </div>
+    </div>
+    <div class="productive-apps">
+      <div class="fapps-text">
+        <h1 class="fapps-text">Productive Apps</h1>
+      </div>
+      <div class="fapp-carousel-container">
+        <div class="fapps-carousel">
+          <fapp v-for="papp in productiveresult" :img="papp.app_icon" :name="papp.app_name"></fapp>
         </div>
       </div>
     </div>
   </section>`,
-  methods: {
-    async fetchApps(URL) {
-      try {
-        // Use the CORS proxy
-        const response = await fetch(URL);
-        const data = await response.json();
-        console.log(data);  // Display the data in the console for debugging
-      } catch (error) {
-        console.error('Error fetching apps:', error.message);
-      }
+  data(){
+    return{
+     featuredresult:[],
+     productiveresult:[],
+     search:'',
     }
   },
+  methods: {
+    async fetchFeaturedApps(url) {
+      const options = {
+        method: 'GET',
+        headers: {
+          'x-rapidapi-key': '777d260b7fmsh8b2cba0726ad101p1b3f6djsndf22e7cf8658',
+          'x-rapidapi-host': 'store-apps.p.rapidapi.com'
+        }
+      };
+      
+      try {
+        const response = await fetch(url, options);
+        const featuredresults = await response.json();
+        this.featuredresult = featuredresults.data;
+        console.log(featuredresults);
+      } catch (error) {
+        console.error(error);
+      }
+  },
+  async fetchProductiveApps(url) {
+    const options = {
+      method: 'GET',
+      headers: {
+        'x-rapidapi-key': '777d260b7fmsh8b2cba0726ad101p1b3f6djsndf22e7cf8658',
+        'x-rapidapi-host': 'store-apps.p.rapidapi.com'
+      }
+    };
+    
+    try {
+      const response = await fetch(url, options);
+      const productiveresults = await response.json();
+      this.productiveresult = productiveresults.data;
+      console.log(productiveresults);
+    } catch (error) {
+      console.error(error);
+    }
+},
+async searchApps(search){
+  const SEARCH_URL = `https://store-apps.p.rapidapi.com/search?${search}=notes&region=us&language=en`;
+  const options = {
+    method: 'GET',
+    headers: {
+      'x-rapidapi-key': '777d260b7fmsh8b2cba0726ad101p1b3f6djsndf22e7cf8658',
+      'x-rapidapi-host': 'store-apps.p.rapidapi.com'
+    }
+  };
+  
+  try {
+    const response = await fetch(SEARCH_URL, options);
+    const productiveresults = await response.json();
+    this.productiveresult = productiveresults.data;
+    console.log(productiveresults);
+  } catch (error) {
+    console.error(error);
+  }
+},
+},
   mounted() {
-    this.fetchApps(FROID_URL);
+    //this.fetchFeaturedApps(FEATURED_URL);
+    //this.fetchProductiveApps(PRODUCTIVE_URL);
+      const searchInput = document.querySelector('#search');
+      searchInput.addEventListener('input', (event) => {
+        this.searchApps(event.target.value); // Use event.target.value to get the input value
+      });
   }
 }
 
@@ -329,7 +402,7 @@ const Loading = {
     };
 
     startProgress();
-    return { progress }; // ✅ Return progress so Vue tracks it
+    return { progress }; //progress so Vue tracks it
   }
 };
 
@@ -389,4 +462,5 @@ vueApp.use(router);
 vueApp.component('card', Card);
 vueApp.component('fapp',Fapp);
 vueApp.component('progressbar', Loading);
+vueApp.component('search-card',SearchCard);
 vueApp.mount('#app');

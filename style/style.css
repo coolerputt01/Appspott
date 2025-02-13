@@ -512,6 +512,7 @@ dotlottie-player{
 .home{
   background:linear-gradient(-70deg,var(--black),var(--reddishgrey),var(--reddishgrey),var(--red),var(--red));
   padding:20px;
+  gap:5%;
 }
 .section-header{
   padding: 12px;
@@ -531,6 +532,59 @@ dotlottie-player{
   opacity:0.4;
   mix-blend-mode: darken;
 }
+.featured-apps .productive-apps{
+  margin:16px;
+}
+.search-card{
+  width:100%;
+  height:100%;
+  background-color: var(--somehowblack);
+  padding:12px;
+}
+.info-container{
+  display:flex;
+  justify-content:center;
+  flex-direction: row;
+  align-items:center;
+  gap:10px;
+}
+.search-text{
+  display:flex;
+  justify-content:center;
+  flex-direction: column;
+  align-items:center;
+  gap:12px;
+}
+.search-text > *{
+  text-align:left;
+}
+.search-title{
+  font-size: 1.2em;
+}
+.search-desc{
+  font-size: 0.9em;
+}
+.search-container{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+  width:100%;
+  height: 115vw;
+  z-index: 10;
+  border: 0.5px var(--white) solid;
+  border-radius: 18px;
+  overflow-y: scroll;
+}
+.search-card:hover{
+  opacity: 0.7;
+}
+.search-img{
+  width:20vw;
+  height:12vh;
+  object-fit: cover;
+  border-radius: 12px;
+}
 .wellshown{
   margin:12px;
   scale:0.7;
@@ -541,14 +595,15 @@ dotlottie-player{
 }
 .fapp-carousel-container{
   overflow: hidden;
-  width:100vw;
+  width:150vw;
   height:100%;
 }
 .fapps-carousel{
   overflow-x: scroll;
-  width:100vw;
+  width:100%;
   height:100%;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items:center;
 }
