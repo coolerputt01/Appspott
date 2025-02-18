@@ -449,8 +449,8 @@ goToAppPage(appId) {
 },
 },
   mounted() {
-    //this.fetchFeaturedApps(FEATURED_URL);
-    //this.fetchProductiveApps(PRODUCTIVE_URL);
+    this.fetchFeaturedApps(FEATURED_URL);
+    this.fetchProductiveApps(PRODUCTIVE_URL);
       const searchInput = document.querySelector('#search');
       searchInput.addEventListener('input', (event) => {
         if(event.target.value.length > 3){
