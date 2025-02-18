@@ -149,23 +149,23 @@ async emailExists(email){
 async login() {
   try {
     await signInWithEmailAndPassword(auth, this.email, this.password);
-    const errorToast = document.querySelector('.toastv');
+    /*const errorToast = document.querySelector('.toastv');
     const errorText = document.querySelector('.message-text');
     errorText.style.color = "green";
     errorText.textContent = "Login successful!";
     document.querySelector('.sub-text').textContent = "";
-    errorToast.classList.add('showv');
+    errorToast.classList.add('showv');*/
     router.push("/home");
   } catch(error) {
     console.error(error.message);
-    const errorToast = document.querySelector('.toastv');
+    /*const errorToast = document.querySelector('.toastv');
     const errorText = document.querySelector('.message-text');
     errorText.style.color = "red";
     errorText.textContent = error.message;
     errorToast.classList.add('showv');
     setTimeout(() => {
   errorToast.classList.remove('showv');
-}, 3000);
+}, 3000);*/
   }
 },
 async signup(){
@@ -264,6 +264,73 @@ const SearchCard = {
   }
 }
 
+const AppDetailPage = {
+  template:`
+  <section class="app-detail-section">
+    <nav class="app-detail-navbar">
+      <div class="header-detail">
+        <i class="fa-solid fa-angle-left" @click="$router.go(-1)"></i>
+        <h1 class="app-detail-nav-header">Appspott</h1>
+      </div>
+    </nav>
+    <div v-if="loading" class="app-detail-info">
+      <img src="https://i.ibb.co/chF67mb0/appspottloading.gif" alt="Appspott" class="app-detail-icon" loading="lazy">
+      <div class="app-detail-info-text">
+        <h2 class="app-detail-info-header">Loading</h2>
+        <p class="app-detail-info-desc"> Please wait...</p>
+      </div>
+    </div>
+    <div v-else class="app-detail-info">
+      <img :src="app.app_icon" :alt="app.app_name" class="app-detail-icon" loading="lazy">
+      <div class="app-detail-info-text">
+        <h2 class="app-detail-info-header"> {{ app.app_name }}</h2>
+        <p class="app-detail-info-desc"> {{ app.app_description}}</p>
+        <a :href="app.app_page_link"class="download-btn">Download</a>
+      </div>
+    </div>
+    <div class="fapp-carousel-container">
+        <div class="fapps-carousel back-check">
+          <fapp v-if="loading" v-for="img in app.photos" src="https://i.ibb.co/chF67mb0/appspottloading.gif" alt="Appspott"></fapp>
+          <img v-else v-for="iamgg in app.photos" :src="iamgg" :alt="app.app_name" class="app-detail-info-pic">
+        </div>
+      </div>
+  </section>`,
+  props: ['id'], // Receive the app id from the route params
+  data() {
+    return {
+      app: [],
+      loading:true,
+    };
+  },
+  methods:{
+    async fetchAppDetail(appId){
+      const url = `https://store-apps.p.rapidapi.com/app-details?app_id=${appId}&region=us&language=en`;
+      const options = {
+        method: 'GET',
+        headers: {
+          'x-rapidapi-key': 'f52c621a1emsh930a064830290e5p18767cjsn353a48a496cd',
+          'x-rapidapi-host': 'store-apps.p.rapidapi.com'
+        }
+      };
+      
+      try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        if(response.ok){
+          this.app = result.data[0];
+          console.log(this.app);
+          this.loading = false;
+        }
+      } catch (error) {
+        console.error(error.message);
+      }
+  }
+},mounted(){
+  console.log(this.id);
+  this.fetchAppDetail(this.id);
+},
+
+}
 const HomePage = {
   template:`<section class="home">
     <nav class="field">
@@ -280,7 +347,8 @@ const HomePage = {
           width="16"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/></svg>
     </nav>
     <div class="search-container">
-      <search-card v-for="sapp in searchresult" :img="sapp.app_icon" :title="sapp.app_name" :desc="sapp.app_name.slice(0,17) + '...' "></search-card>
+      <search-card v-if="loading" v-for="fapp in defaultCounter" img="https://i.ibb.co/chF67mb0/appspottloading.gif" title="****" desc="......"></search-card>
+      <search-card v-for="sapp in searchresult" :img="sapp.app_icon" :title="sapp.app_name" :desc="sapp.app_name.slice(0,17) + '...' " @click="goToAppPage(sapp.app_id)"></search-card>
     </div>
     <div class="featured-apps">
       <div class="fapps-text">
@@ -288,7 +356,8 @@ const HomePage = {
       </div>
       <div class="fapp-carousel-container">
         <div class="fapps-carousel">
-          <fapp v-for="fapp in featuredresult" :img="fapp.app_icon" :name="fapp.app_name"></fapp>
+          <fapp v-if="loading" v-for="fapp in defaultCounter" img="https://i.ibb.co/chF67mb0/appspottloading.gif" name="****"></fapp>
+          <fapp v-else v-for="fapp in featuredresult" :img="fapp.app_icon" :name="fapp.app_name" @click="goToAppPage(fapp.app_id)"></fapp>
         </div>
       </div>
     </div>
@@ -298,7 +367,8 @@ const HomePage = {
       </div>
       <div class="fapp-carousel-container">
         <div class="fapps-carousel">
-          <fapp v-for="papp in productiveresult" :img="papp.app_icon" :name="papp.app_name"></fapp>
+          <fapp v-if="loading" v-for="papp in defaultCounter" img="https://i.ibb.co/chF67mb0/appspottloading.gif" name="****"></fapp>
+          <fapp v-else v-for="papp in productiveresult" :img="papp.app_icon" :name="papp.app_name" @click="goToAppPage(papp.app_id)"></fapp>
         </div>
       </div>
     </div>
@@ -309,6 +379,8 @@ const HomePage = {
      productiveresult:[],
      search:'',
      searchresult:[],
+     loading:true,
+     defaultCounter:5,
     }
   },
   methods: {
@@ -316,7 +388,7 @@ const HomePage = {
       const options = {
         method: 'GET',
         headers: {
-          'x-rapidapi-key': '777d260b7fmsh8b2cba0726ad101p1b3f6djsndf22e7cf8658',
+          'x-rapidapi-key': 'f52c621a1emsh930a064830290e5p18767cjsn353a48a496cd',
           'x-rapidapi-host': 'store-apps.p.rapidapi.com'
         }
       };
@@ -324,8 +396,9 @@ const HomePage = {
       try {
         const response = await fetch(url, options);
         const featuredresults = await response.json();
-        this.featuredresult = featuredresults.data.apps;
+        this.featuredresult = featuredresults.data;
         console.log(featuredresults);
+        this.loading = false;
       } catch (error) {
         console.error(error);
       }
@@ -334,7 +407,7 @@ const HomePage = {
     const options = {
       method: 'GET',
       headers: {
-        'x-rapidapi-key': '777d260b7fmsh8b2cba0726ad101p1b3f6djsndf22e7cf8658',
+        'x-rapidapi-key': 'f52c621a1emsh930a064830290e5p18767cjsn353a48a496cd',
         'x-rapidapi-host': 'store-apps.p.rapidapi.com'
       }
     };
@@ -344,6 +417,7 @@ const HomePage = {
       const productiveresults = await response.json();
       this.productiveresult = productiveresults.data;
       console.log(productiveresults);
+      this.loading = false;
     } catch (error) {
       console.error(error);
     }
@@ -353,29 +427,36 @@ async searchApps(search){
   const options = {
     method: 'GET',
     headers: {
-      'x-rapidapi-key': '777d260b7fmsh8b2cba0726ad101p1b3f6djsndf22e7cf8658',
+      'x-rapidapi-key': 'f52c621a1emsh930a064830290e5p18767cjsn353a48a496cd',
       'x-rapidapi-host': 'store-apps.p.rapidapi.com'
     }
   };
   
-  try {
-    const response = await fetch(SEARCH_URL, options);
+  try{
+    const response = await fetch(SEARCH_URL,options);
     const searchresults = await response.json();
     this.searchresult = searchresults.data.apps;
     console.log(searchresults);
+    document.querySelector('.search-container').style.display = 'flex';
+    this.loading = false;
   } catch (error) {
     console.error(error);
+    document.querySelector('.search-container').style.display = 'none'
   }
+},
+goToAppPage(appId) {
+  router.push({ name: 'app-detail', params: { id: appId } });
 },
 },
   mounted() {
-    //this.fetchFeaturedApps(FEATURED_UL);
-    //this.fetchProductiveApps(PRODUCTIVE_RL);
+    //this.fetchFeaturedApps(FEATURED_URL);
+    //this.fetchProductiveApps(PRODUCTIVE_URL);
       const searchInput = document.querySelector('#search');
       searchInput.addEventListener('input', (event) => {
         if(event.target.value.length > 3){
           this.searchApps(event.target.value);
-          document.querySelector('.search-container').style.display = 'flex' // Use event.target.value to get the input value
+          document.querySelector('.search-container').style.display = 'none'
+           // Use event.target.value to get the input value
         }else{
           return;
         }
@@ -387,6 +468,12 @@ const routes = [
   { path: "/", component: Landing },
   { path:"/signin",component:SignIn},
   { path:"/home", component:HomePage},
+  {
+    path: '/app/:id',
+    name: 'app-detail',
+    component: AppDetailPage,
+    props: true
+  },
 ];
 
 // Create router instance

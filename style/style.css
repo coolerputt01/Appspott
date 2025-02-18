@@ -45,6 +45,31 @@ main{
   z-index:1;
   border:2px solid var(--offwhite);
 }
+.download-btn{
+  border:none;
+  outline:none;
+  background-color:var(--deepred);
+  border-radius:56px;
+  z-index:1;
+  border:2px solid var(--offwhite);
+  padding:8px;
+  margin: 20px;
+  text-decoration: none;
+  color:var(--offwhite);
+}
+.download-btn:hover{
+  opacity:0.5;
+}
+.app-detail-info-pic{
+  width:60vw;
+  height: 50vh;
+  object-fit: cover;
+  border-radius: 14px;
+  margin:12px;
+}
+.back-check{
+  background-color:var(--blackgrey);
+}
 .action-btn{
   display:flex;
   justify-content:center;
@@ -262,6 +287,12 @@ dotlottie-player{
     font-size:1.2em;
     border:3.5px solid var(--white);
     padding:18px;
+  }
+  .download-btn{
+    font-size:1.2em;
+    border:3.5px solid var(--white);
+    padding:8px;
+    margin: 20px;
   }
   .info-head-text{
     font-size:4.2em;
@@ -611,4 +642,64 @@ dotlottie-player{
   flex-direction: row;
   justify-content: center;
   align-items:center;
+}
+
+.app-detail-navbar{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width:100vw;
+  align-items:center;
+}
+.app-detail-nav-header{
+  padding: 12px;
+}
+.header-detail{
+  display: flex;
+  flex-direction: row;
+  justify-content:center;
+  width:50%;
+  align-items:center;
+}
+.app-detail-icon{
+  width:10em;
+  height: 10em;
+  object-fit: cover;
+  mix-blend-mode: luminosity;
+}
+.app-detail-info{
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  width:100%;
+  align-items:center;
+  margin:5px;
+  margin-top:75px;
+}
+.app-detail-info-text{
+  display: flex;
+  flex-direction:column ;
+  justify-content: center;
+  align-items:center;
+  color:var(--black) !important;
+  padding: 7px;
+}
+.app-detail-info-desc{
+  font-size: 0.6em;
+  color:var(--white);
+}
+.app-detail-section{
+  background:linear-gradient(-70deg,var(--black),var(--reddishgrey),var(--reddishgrey),var(--red),var(--red));
+  padding:20px;
+  gap:5%;
+  width:100%;
+  height:100%;
+  display: flex;
+  flex-direction:column ;
+  justify-content: center;
+  align-items:center;
+  color:var(--black) !important;
+}
+.test{
+  color:var(--black) !important;
 }
