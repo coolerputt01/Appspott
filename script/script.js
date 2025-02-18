@@ -171,33 +171,24 @@ async login() {
 async signup(){
   try{
     if(await this.emailExists(this.email)){
-      alert("wrong");
+      alert("Use another email");
+      return;
     }else{
-      alert('hi')
+      const userCredential = await createUserWithEmailAndPassword(auth, this 
+        .email, this.password);
+      router.push("/home");
     }
-    const userCredential = await createUserWithEmailAndPassword(auth, this 
-    .email, this.password);
-    const user = userCredential.user;
-    const errorToast = document.querySelector('.toastv');
-    const errorText = document.querySelector('.message-text');
-    errorText.style.color = "green";
-    errorText.textContent = "Please Verify your email.";
-    document.querySelector('.sub-text').textContent = "";
-    errorToast.classList.add('showv');
-    setTimeout(() => {
-    errorToast.classList.remove('showv');
-}, 3000);
     
   }catch(error){
     console.error(error.message);
-    const errorToast = document.querySelector('.toastv');
+    /*const errorToast = document.querySelector('.toastv');
     const errorText = document.querySelector('.message-text');
     errorText.style.color = "red";
     errorText.textContent = error.message;
     errorToast.classList.add('showv');
     setTimeout(() => {
   errorToast.classList.remove('showv');
-}, 3000);
+}, 3000);*/
   }
 },
 }
