@@ -23,6 +23,7 @@
 }
 body{
   overflow-x:hidden;
+  background-color: black;
 }
 #app{
   overflow-x:hidden;

@@ -25,8 +25,7 @@ const FEATURED_URL = 'https://store-apps.p.rapidapi.com/top-free-games?category=
 const PRODUCTIVE_URL = 'https://store-apps.p.rapidapi.com/top-free-apps?category=BOOKS_AND_REFERENCE&limit=5&region=us&language=en';
 
 const Landing = {
-  template:`
-  <section id="landing">
+  template:`<section id="landing">
     <main class="main">
       <div class="hero-text">
         <div class="hero-header">
