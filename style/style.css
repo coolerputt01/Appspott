@@ -22,8 +22,7 @@
   color:var(--white);
 }
 body{
-  overflow-x:hidden;
-  background-color: black;
+  overflow-x:hidden; 
 }
 #app{
   overflow-x:hidden;
@@ -189,7 +188,9 @@ main{
   transform: translateY(0%);
   opacity:1;
 }
+/*.card{
 
+}*/
 .card-head::after {
   content: "";
   position: absolute;
@@ -272,6 +273,9 @@ dotlottie-player{
     left:-15%;
     margin:3%;
     cursor: pointer;
+  }
+  .form{
+    width:50vw !important;
   }
   .app-detail-info-desc{
     font-size: 0.76em !important;
@@ -418,10 +422,10 @@ dotlottie-player{
   border-radius: 25px;
   transition: 0.4s ease-in-out;
   margin-top:50%;
+  width:100vw;
 }
 
 .card1 {
-  background-image: linear-gradient(163deg, #00ff75 0%, #3700ff 100%);
   border-radius: 22px;
   transition: all 0.3s;
 }
@@ -434,10 +438,6 @@ dotlottie-player{
 .card2:hover {
   transform: scale(0.98);
   border-radius: 20px;
-}
-
-.card1:hover {
-  box-shadow: 0px 0px 30px 1px var(--red);
 }
 
 #heading {
