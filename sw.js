@@ -1,6 +1,6 @@
 const CACHE_NAME = 'v2'; // Update the cache name
 const urlsToCache = [
-  '/indexi.html',
+  '/index.html',
   '/script/router.js',
   '/script/script.js',
   '/style/style.css',
