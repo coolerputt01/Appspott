@@ -269,12 +269,21 @@ const AppDetailPage = {
     async fetchAppDetail(appId){
       const url = `https://store-apps.p.rapidapi.com/app-details?app_id=${appId}&region=us&language=en`;
       const options = {
+<<<<<<< HEAD
 	method: 'GET',
 	headers: {
 		'x-rapidapi-key': 'f52c621a1emsh930a064830290e5p18767cjsn353a48a496cd',
 		'x-rapidapi-host': 'store-apps.p.rapidapi.com'
 	}
 };
+=======
+        method: 'GET',
+        headers: {
+          'x-rapidapi-key': 'e2f231150emsh3d684e0a1bd3647p172334jsn9dc3e70f1cee',
+          'x-rapidapi-host': 'store-apps.p.rapidapi.com'
+        }
+      };
+>>>>>>> 31311e2 (Some changes made)
       
       try {
         const response = await fetch(url, options);
@@ -349,12 +358,21 @@ const HomePage = {
   methods: {
     async fetchFeaturedApps(url) {
       const options = {
+<<<<<<< HEAD
 	method: 'GET',
 	headers: {
 		'x-rapidapi-key': 'f52c621a1emsh930a064830290e5p18767cjsn353a48a496cd',
 		'x-rapidapi-host': 'store-apps.p.rapidapi.com'
 	}
 };
+=======
+        method: 'GET',
+        headers: {
+          'x-rapidapi-key': 'e2f231150emsh3d684e0a1bd3647p172334jsn9dc3e70f1cee',
+          'x-rapidapi-host': 'store-apps.p.rapidapi.com'
+        }
+      };
+>>>>>>> 31311e2 (Some changes made)
       
       try {
         const response = await fetch(url, options);
@@ -368,12 +386,21 @@ const HomePage = {
   },
   async fetchProductiveApps(url) {
     const options = {
+<<<<<<< HEAD
 	method: 'GET',
 	headers: {
 		'x-rapidapi-key': 'f52c621a1emsh930a064830290e5p18767cjsn353a48a496cd',
 		'x-rapidapi-host': 'store-apps.p.rapidapi.com'
 	}
 };
+=======
+      method: 'GET',
+      headers: {
+        'x-rapidapi-key': 'e2f231150emsh3d684e0a1bd3647p172334jsn9dc3e70f1cee',
+        'x-rapidapi-host': 'store-apps.p.rapidapi.com'
+      }
+    };
+>>>>>>> 31311e2 (Some changes made)
     
     try {
       const response = await fetch(url, options);
@@ -388,12 +415,21 @@ const HomePage = {
 async searchApps(search){
   const SEARCH_URL = `https://store-apps.p.rapidapi.com/search?q=${this.search}&region=us&language=en`;
   const options = {
+<<<<<<< HEAD
 	method: 'GET',
 	headers: {
 		'x-rapidapi-key': 'f52c621a1emsh930a064830290e5p18767cjsn353a48a496cd',
 		'x-rapidapi-host': 'store-apps.p.rapidapi.com'
 	}
 };
+=======
+    method: 'GET',
+    headers: {
+      'x-rapidapi-key': 'e2f231150emsh3d684e0a1bd3647p172334jsn9dc3e70f1cee',
+      'x-rapidapi-host': 'store-apps.p.rapidapi.com'
+    }
+  };
+>>>>>>> 31311e2 (Some changes made)
   
   try{
     const response = await fetch(SEARCH_URL,options);
