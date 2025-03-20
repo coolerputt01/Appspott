@@ -9,12 +9,12 @@ import { getDatabase, set } from "https://www.gstatic.com/firebasejs/11.2.0/fire
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyD8VDvjLIQ4D--3Ss6siuT4dSGXXzU0Kq4",
-  authDomain: "t-86e9c.firebaseapp.com",
-  projectId: "t-86e9c",
-  storageBucket: "t-86e9c.firebasestorage.app",
-  messagingSenderId: "528369062614",
-  appId: "1:528369062614:web:7aaee6eb51ebac5c96ef77"
+  apiKey: "AIzaSyA1O8cMoLQ361ytVwwXkagOLCHM52SgsgE",
+  authDomain: "t-1f053.firebaseapp.com",
+  projectId: "t-1f053",
+  storageBucket: "t-1f053.firebasestorage.app",
+  messagingSenderId: "53347436900",
+  appId: "1:53347436900:web:43cbc21da922938a565271"
 };
 
 const app = initializeApp(firebaseConfig);
@@ -141,6 +141,10 @@ async login() {
   }
 },
 async signup(){
+  if (!this.email || !this.password) {
+    alert("Email and password are required");
+    return;
+  }
   try{
     if(await this.emailExists(this.email)){
       alert("Use another email");
